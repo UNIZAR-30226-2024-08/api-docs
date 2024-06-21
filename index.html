@@ -639,7 +639,7 @@ Carta {
 </li>
 </ul>
 <p>En respuesta a los tres mensajes, se enviará el estado completo actualizado de la partida a todos los jugadores.</p>
-<p>Cuando todos lo sjugadores han finalizado su turno juega el crupier, se manda el estado actualizado de la partida a todos los jugadores y se pasa a la fase <code>final</code>.</p>
+<p>Cuando todos los jugadores han finalizado su turno juega el crupier, se manda el estado actualizado de la partida a todos los jugadores y se pasa a la fase <code>final</code>.</p>
 </li>
 <li>
 <p>Fase <code>final</code>, en la que se calculan las ganancias o pérdidas según el valor de las manos, se aplican a los saldos y se manda el estado actualizado de la partida:</p>
@@ -737,7 +737,7 @@ En respuesta a este mensaje, se pasa a la fase de <code>apuesta1</code> y se env
 	error = <span class="hljs-string">'error'</span>,
 }
 
-<span class="hljs-keyword">enum</span> AccionJugador {
+<span class="hljs-keyword">enum</span> AccionBJ {
 	apostar = <span class="hljs-string">'apostar'</span>,
 
 	pedirCarta = <span class="hljs-string">'pedirCarta'</span>,
@@ -745,6 +745,14 @@ En respuesta a este mensaje, se pasa a la fase de <code>apuesta1</code> y se env
 	retirarse = <span class="hljs-string">'retirarse'</span>, <span class="hljs-comment">// solo si no se ha pedido ninguna carta antes</span>
 
 	nuevaRonda = <span class="hljs-string">'nuevaRonda'</span>,
+}
+
+<span class="hljs-keyword">enum</span> AccionPoker {
+	igualar = <span class="hljs-string">"igualarApuesta"</span>,
+	subir = <span class="hljs-string">"subirApuesta"</span>,
+	retirarse = <span class="hljs-string">"retirarse"</span>,
+
+	nuevaRonda = <span class="hljs-string">"nuevaRonda"</span>,
 }
 
 <span class="hljs-keyword">interface</span> crearSala {
@@ -778,6 +786,10 @@ En respuesta a este mensaje, se pasa a la fase de <code>apuesta1</code> y se env
 
 <span class="hljs-keyword">interface</span> reanudarSala {
 	accion: AccionSala.reanudarSala;
+}
+
+<span class="hljs-keyword">interface</span> esperarJugadoresPausados {
+	accion: AccionSala.esperarJugadoresPausados;
 }
 
 <span class="hljs-keyword">interface</span> premio { <span class="hljs-comment">// solo para el jugador que abandona</span>
