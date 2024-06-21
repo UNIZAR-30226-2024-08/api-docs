@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ws-docs.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="documentaci%C3%B3n-de-las-conexiones-con-websockets-para-las-salas-y-partidas">Documentación de las conexiones con WebSockets para las salas y partidas</h1>
+<p>Antes de nada, cualquier sugerencia de cambio o mejora en el protocolo de comunicación es bienvenida para facilitar el uso de la API.</p>
+<p>Los mensajes intercambiados serán de la forma:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"&lt;accion&gt;"</span>,
+  <span class="hljs-attr">"&lt;más info dependiente de la acción&gt;"</span>: <span class="hljs-string">"&lt;contenido del mensaje&gt;"</span>
+  ...
+}
+</div></code></pre>
+<p>Donde la acción puede ser parte de un conjunto u otro de acciones según si la sala está iniciada o no.</p>
+<h2 id="errores">Errores</h2>
+<p>En caso de que ocurra un error, se recibirá un mensaje tal que:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"error"</span>,
+  <span class="hljs-attr">"mensaje"</span>: <span class="hljs-string">"&lt;mensaje de error&gt;"</span>
+}
+</div></code></pre>
+<h2 id="salas">Salas</h2>
+<h3 id="privadas">Privadas</h3>
+<p>Hay dos maneras de conectarse a una sala privada no iniciada:</p>
+<ul>
+<li>
+<p>Crear una sala</p>
+<p>Creando un WebSocket en el endpoint:<br>
+<code>wss://casino-backend.azurewebsites.net/BJ/crearSala/:gmail/:acceso/:aforo</code></p>
+<p>Donde:</p>
+<ul>
+<li><code>gmail</code> es el correo del usuario</li>
+<li><code>acceso</code> es o bien <code>privada</code> o bien <code>publica</code></li>
+<li><code>aforo</code> es el número máximo de jugadores que podrán unirse a la sala, debe estar <strong>entre 1 y 7</strong></li>
+</ul>
+<p>Si <code>acceso</code> es <strong>publica</strong>, puede pasar una de dos cosas:</p>
+<ul>
+<li>Si hay alguna sala pública no iniciada con hueco para más jugadores, se unirá a la primera que encuentre, y se recibirán los mensajes análogos a <strong>unirse a una sala privada</strong>.</li>
+<li>Si no hay ninguna sala pública no iniciada, se creará una nueva sala pública, y se recibirán los mensajes análogos a <strong>crear una sala privada</strong>.</li>
+</ul>
+<hr>
+<p>En respuesta a una conexión para sala privada, se recibirá un mensaje con el código de la sala creada:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"crear"</span>,
+  <span class="hljs-attr">"codigo"</span>: <span class="hljs-string">"&lt;codigo&gt;"</span>
+}
+</div></code></pre>
+</li>
+<li>
+<p>Unirse a una sala privada existente</p>
+<p>Creando un WebSocket en el endpoint:<br>
+<code>wss://casino-backend.azurewebsites.net/BJ/unirseSala/:codigo/:gmail</code></p>
+<p>Donde:</p>
+<ul>
+<li><code>codigo</code> es el código de la sala</li>
+<li><code>gmail</code> es el correo del usuario</li>
+</ul>
+<hr>
+<p>En respuesta a esta conexión, se recibirá un mensaje con la acción <code>unirse</code> y la lista de jugadores que están en la sala:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"unirse"</span>,
+  <span class="hljs-attr">"jugadores"</span>: [
+    <span class="hljs-string">"&lt;gmail1&gt;"</span>,
+    <span class="hljs-string">"&lt;gmail2&gt;"</span>,
+    ...
+  ]
+}
+</div></code></pre>
+<p>Y además, el resto de jugadores recibirán un mensaje así:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"nuevoJugador"</span>,
+  <span class="hljs-attr">"jugador"</span>: <span class="hljs-string">"&lt;gmail&gt;"</span>
+}
+</div></code></pre>
+</li>
+</ul>
+<hr>
+<p>Una vez conectado a la sala, y mientras no esté iniciada, se pueden mandar mensajes con las acciones:</p>
+<ul>
+<li>
+<p><code>abandonar</code> para abandonar la sala:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"abandonar"</span> }
+</div></code></pre>
+<p>En respuesta a este mensaje, todos recibirán un mensaje con la acción <code>abandonar</code> y el correo del <code>jugador</code> que abandonó, incluido el jugador en cuestión:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"abandonar"</span>,
+  <span class="hljs-attr">"jugador"</span>: <span class="hljs-string">"&lt;gmail&gt;"</span>
+}
+</div></code></pre>
+</li>
+<li>
+<p><code>iniciar</code> para iniciar la sala:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"iniciar"</span> }
+</div></code></pre>
+<p>En respuesta a este mensaje, todos recibirán un mensaje con la acción <code>iniciar</code>:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"iniciar"</span> }
+</div></code></pre>
+<p>Y se cerrará la sala a nuevas conexiones.</p>
+</li>
+</ul>
+<h2 id="partidas">Partidas</h2>
+<h3 id="acciones-de-la-sala">Acciones de la sala</h3>
+<p>Una vez iniciada la sala, se pueden mandar mensajes con las acciones:</p>
+<ul>
+<li>
+<p><code>abandonar</code> para abandonar la sala:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"abandonar"</span> }
+</div></code></pre>
+<p>En respuesta a este mensaje, todos recibirán un mensaje con la acción <code>abandonar</code> y el correo del <code>jugador</code> que abandonó, incluido el jugador en cuestión, y se registrará la partida en el historial:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"abandonar"</span>,
+  <span class="hljs-attr">"jugador"</span>: <span class="hljs-string">"&lt;gmail&gt;"</span>
+}
+</div></code></pre>
+<p>Además, por cada 10 partidas ganadas (ha abandonado 10 salas con más saldo del que empezó), el jugador que abandona habrá recibido <strong>ANTES</strong> del mensaje de <code>abandonar</code> un mensaje con la acción <code>premio</code> y un nuevo personalizable desbloqueado:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"premio"</span>,
+  <span class="hljs-attr">"personalizable"</span>: <span class="hljs-string">"&lt;personalizable&gt;"</span>
+}
+</div></code></pre>
+</li>
+<li>
+<p><code>pausar</code> para pausar la partida:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"pausar"</span> }
+</div></code></pre>
+<p><strong>IMPORTANTE</strong>: Damos la posibilidad de que cada jugador pause la partida por individual, de manera que una sala está pausada si algún jugador la ha pausado, y se reanuda cuando todos los jugadores la han reanudado.</p>
+<p>En respuesta a este mensaje, todos recibirán un mensaje indicando qué jugadores están en pausa:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"pausar"</span>,
+  <span class="hljs-attr">"jugadores"</span>: [<span class="hljs-string">"&lt;gmail1&gt;"</span>, ...]
+}
+</div></code></pre>
+</li>
+<li>
+<p><code>reanudar</code> para reanudar la partida por parte de un jugador que la ha pausado:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"reanudar"</span> }
+</div></code></pre>
+<p>En respuesta a este mensaje, <strong>si la sala sigue pausada</strong> se recibirá un mensaje tal que:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"esperar"</span> }
+</div></code></pre>
+<p>Pero si todos los jugadores han reanudado la partida se recibirá un mensaje de confirmación de <code>reanudar</code>, y se reanudará la partida:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"reanudar"</span> }
+</div></code></pre>
+<p><em><strong>Nota</strong></em>: Tendrá un efecto idéntico a mandar un mensaje <code>pausar</code> que la conexión WebSocket de un jugador se cierre, por la razón que sea. <br>
+En este caso para reanudar la partida se deberá crear una nueva conexión ws en el endpoint:</p>
+<p><code>wss://casino-backend.azurewebsites.net/BJ/reanudarSala/:gmail</code></p>
+<ul>
+<li><code>gmail</code>: Correo electrónico del jugador que reanuda la sala.</li>
+</ul>
+<p>La respuesta será idéntica a la de reanudar la sala mandando un mensaje.</p>
+<p><em><strong>Consejo</strong></em>: Esta es la información que se envía al front-end, pero no significa que todo se deba mostrar ni se deba dar la opción de hacer todo.</p>
+</li>
+</ul>
+<hr>
+<h3 id="acciones-de-los-jugadores-y-transcurso-de-la-partida-blackjack">Acciones de los jugadores y transcurso de la partida Blackjack</h3>
+<p><em><strong>Nota 1</strong></em>: Una partida es una secuencia de rondas, y si en alguna ronda un jugador se queda sin dinero, se le retira automáticamente para el resto de rondas.<br>
+<em><strong>Nota 2</strong></em>: Al abandonar la sala el jugador se queda con el saldo que tenía en ese momento, perdiendo su apuesta instantáneamente.</p>
+<p>Justo después de recibir el mensaje de <code>iniciar</code>, se recibirá un mensaje con el estado de la partida con el formato:</p>
+<pre class="hljs"><code><div>estadoPartida {
+	accion: <span class="hljs-string">'estado'</span>,
+	fase: Fase,
+	turno: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// gmail</span>
+	manoCrupier: Carta[],
+	jugadores: {
+		gmail: <span class="hljs-built_in">string</span>,
+		cartas: Carta[],
+		saldo: <span class="hljs-built_in">number</span>,
+		apuesta: <span class="hljs-built_in">number</span>,
+		estaRetirado: <span class="hljs-built_in">boolean</span>,
+	}[]
+}
+
+Carta {
+    puntos: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// 2..11 (el as es 11, pero en el servidor se puntúa de la forma más beneficiosa para el jugador)</span>
+    palo: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// 'corazones', 'diamantes', 'tréboles', 'espadas'</span>
+}
+</div></code></pre>
+<details>
+<summary>Un mensaje de ejemplo de la fase final sería:</summary>
+<pre class="hljs"><code><div>{
+    <span class="hljs-string">"accion"</span>: <span class="hljs-string">"estado"</span>,
+    <span class="hljs-string">"fase"</span>: <span class="hljs-string">"final"</span>,
+    <span class="hljs-string">"turno"</span>: <span class="hljs-string">"839841@unizar.es"</span>,
+    <span class="hljs-string">"manoCrupier"</span>: [
+        {
+            <span class="hljs-string">"puntos"</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-string">"palo"</span>: <span class="hljs-string">"diamantes"</span>
+        },
+        {
+            <span class="hljs-string">"puntos"</span>: <span class="hljs-number">10</span>,
+            <span class="hljs-string">"palo"</span>: <span class="hljs-string">"corazones"</span>
+        }
+    ],
+    <span class="hljs-string">"jugadores"</span>: [
+        {
+            <span class="hljs-string">"gmail"</span>: <span class="hljs-string">"839922@unizar.es"</span>,
+            <span class="hljs-string">"saldo"</span>: <span class="hljs-number">7.5</span>,
+            <span class="hljs-string">"apuesta"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">"estaRetirado"</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-string">"cartas"</span>: [
+                {
+                    <span class="hljs-string">"puntos"</span>: <span class="hljs-number">5</span>,
+                    <span class="hljs-string">"palo"</span>: <span class="hljs-string">"espadas"</span>
+                },
+                {
+                    <span class="hljs-string">"puntos"</span>: <span class="hljs-number">6</span>,
+                    <span class="hljs-string">"palo"</span>: <span class="hljs-string">"tréboles"</span>
+                }
+            ]
+        },
+        {
+            <span class="hljs-string">"gmail"</span>: <span class="hljs-string">"839841@unizar.es"</span>,
+            <span class="hljs-string">"saldo"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">"apuesta"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-string">"estaRetirado"</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-string">"cartas"</span>: [
+                {
+                    <span class="hljs-string">"puntos"</span>: <span class="hljs-number">3</span>,
+                    <span class="hljs-string">"palo"</span>: <span class="hljs-string">"corazones"</span>
+                },
+                {
+                    <span class="hljs-string">"puntos"</span>: <span class="hljs-number">4</span>,
+                    <span class="hljs-string">"palo"</span>: <span class="hljs-string">"diamantes"</span>
+                }
+            ]
+        }
+    ]
+}
+</div></code></pre>
+</details>
+<br/>
+<p>Ahora vamos a ver las posibles acciones que se pueden realizar en cada fase, y las respuestas que se reciben:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Fase {
+	apuestas = <span class="hljs-string">'apuestas'</span>, <span class="hljs-comment">// apostar</span>
+	reparto = <span class="hljs-string">'reparto'</span>,
+	jugar = <span class="hljs-string">'jugar'</span>, <span class="hljs-comment">// pedirCarta, retirarse, plantarse</span>
+	final = <span class="hljs-string">'final'</span> <span class="hljs-comment">// nuevaRonda</span>
+}
+</div></code></pre>
+<ul>
+<li>
+<p>Fase <code>apuestas</code>:</p>
+<ul>
+<li>
+<p><code>apostar</code> solo se puede apostar una vez, con una precisión máxima de dos decimales.</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"apostar"</span>,
+  <span class="hljs-attr">"cantidad"</span>: &lt;cantidad&gt;
+}
+</div></code></pre>
+<p>En respuesta a este mensaje, se enviará el estado completo actualizado de la partida a todos los jugadores.</p>
+<p>Cuando todos los jugadores han apostado, se pasará a la fase de <code>reparto</code>.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Fase <code>reparto</code>, en la que se reparten 2 cartas a cada jugador, incluido el crupier, se pasa a la fase de <code>jugar</code> y se envía el estado de la partida a todos.</p>
+</li>
+<li>
+<p>Fase <code>jugar</code>, en la que se juega por turnos:</p>
+<ul>
+<li>
+<p><code>pedirCarta</code> para pedir una carta más que añadir a la mano del jugador:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"pedirCarta"</span> }
+</div></code></pre>
+</li>
+<li>
+<p><code>plantarse</code> para quedarte con tu mano y pasar el turno al siguiente jugador no retirado:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"plantarse"</span> }
+</div></code></pre>
+</li>
+<li>
+<p><code>retirarse</code> para retirarse si no has pedido ninguna carta, se pierde sí o sí la mitad de la apuesta:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"retirarse"</span> }
+</div></code></pre>
+</li>
+</ul>
+<p>En respuesta a los tres mensajes, se enviará el estado completo actualizado de la partida a todos los jugadores.</p>
+<p>Cuando todos lo sjugadores han finalizado su turno juega el crupier, se manda el estado actualizado de la partida a todos los jugadores y se pasa a la fase <code>final</code>.</p>
+</li>
+<li>
+<p>Fase <code>final</code>, en la que se calculan las ganancias o pérdidas según el valor de las manos, se aplican a los saldos y se manda el estado actualizado de la partida:</p>
+<ul>
+<li><code>nuevaRonda</code> para empezar una nueva ronda:<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"nuevaRonda"</span> }
+</div></code></pre>
+En respuesta a este mensaje, se pasa a la fase de <code>apuestas</code> y se envia el estado actualizado de la partida a todos los jugadores.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<h3 id="acciones-de-los-jugadores-y-transcurso-de-la-partida-poker">Acciones de los jugadores y transcurso de la partida Poker</h3>
+<p><em><strong>Nota 1</strong></em>: En vista de la añadida complejidad del juego y la falta de tiempo, se ha decidido implementar una versión simplificada del Poker, en la que se reparten las 2 cartas directamente al inicio de la ronda y no se tienen en cuenta botes aparte cuando se hacen all-ins.</p>
+<p><em><strong>Nota 2</strong></em>: El front-end recibe solo las cartas visibles para el jugador en cuestión. Se puede suponer que si en el estado de la partida no hay ninguna carta para un jugador, es porque sus 2 cartas están boca abajo.<br>
+<strong>Recomendamos</strong> actualizar todo el estado de la partida en cada mensaje recibido.</p>
+<p>Se juegan rondas hasta que solo quede un jugador en la sala o un jugador con saldo positivo.</p>
+<p>Tras recibir el mensaje de <code>iniciar</code>, se recibirá un mensaje con el estado de la partida con el formato (muy parecido pero no igual al del Blackjack):</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">interface</span> estadoPartida {
+	accion: AccionSala.estado;
+	fase: Fase;
+	turno: <span class="hljs-built_in">string</span>;
+	cartasComunitarias: Carta[]; <span class="hljs-comment">// cartas del centro de la mesa</span>
+	jugadores: {
+		gmail: <span class="hljs-built_in">string</span>;
+		cartas: Carta[]; <span class="hljs-comment">// vacío para el resto de jugadores durante todas las fases menos la final (donde se muestran todas las cartas de jugadores no retirados)</span>
+		saldo: <span class="hljs-built_in">number</span>;
+		apuesta: <span class="hljs-built_in">number</span>;
+		estaRetirado: <span class="hljs-built_in">boolean</span>;
+	}[];
+	ganadores: <span class="hljs-built_in">string</span>[]; <span class="hljs-comment">// puede haber empate (muy raro)</span>
+}
+</div></code></pre>
+<p>Dicho esto, las fases del juego son:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> Fase {
+	apuesta1 = <span class="hljs-string">"Pre-Flop"</span>,
+	apuesta2 = <span class="hljs-string">"Flop"</span>, <span class="hljs-comment">// flop</span>
+	apuesta3 = <span class="hljs-string">"Turn"</span>, <span class="hljs-comment">// turn</span>
+	apuesta4 = <span class="hljs-string">"River"</span>, <span class="hljs-comment">// river</span>
+	showdown = <span class="hljs-string">"Showdown"</span>,
+}
+</div></code></pre>
+<p>Las 4 primeras fases son idénticas en cuanto a las acciones que se pueden realizar y las respuestas que se reciben:</p>
+<p>En respuesta a todos los mensajes, se enviará el estado completo actualizado de la partida a todos los jugadores.</p>
+<ul>
+<li>
+<p>Fase <code>apuesta1</code>, <code>apuesta2</code>, <code>apuesta3</code> y <code>apuesta4</code>:</p>
+<ul>
+<li>
+<p><code>subirApuesta</code> para subir la apuesta más alta de la mesa una cantidad, con una precisión máxima de dos decimales.
+Se apuesta un incremento respecto a tu apuesta actual, es decir, si tu apuesta anterior era 4 y <code>cantidad</code> es 2, tu nueva apuesta será 6.</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"subirApuesta"</span>,
+  <span class="hljs-attr">"cantidad"</span>: &lt;cantidad&gt;
+}
+</div></code></pre>
+</li>
+<li>
+<p><code>igualarApuesta</code> para igualar la apuesta a la más alta de la mesa. Es decir, si alguien ha apostado 10 y tu apuesta anterior era 4, tu nueva apuesta será 10.</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"igualarApuesta"</span> }
+</div></code></pre>
+</li>
+<li>
+<p><code>retirarse</code> para retirarse hasta el final de la ronda, se pierde la apuesta completa:</p>
+<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"retirarse"</span> }
+</div></code></pre>
+</li>
+</ul>
+<p>Para pasar de una fase a otra, todos los jugadores deben haber igualado la apuesta más alta de la mesa, o haberse retirado.<br>
+En caso de que todos los jugadores menos uno se retiren, se pasa a la fase <code>showdown</code>, y en ese caso nadie verá las cartas del ganador.</p>
+</li>
+<li>
+<p>Fase <code>showdown</code>, en la que se determinan los ganadores, se reparte el bote y se envía el estado actualizado de la partida a todos los jugadores:<br>
+Se recibirán las cartas de todos los jugadores no retirados.</p>
+<ul>
+<li><code>nuevaRonda</code> para empezar una nueva ronda:<pre class="hljs"><code><div>{ <span class="hljs-attr">"accion"</span>: <span class="hljs-string">"nuevaRonda"</span> }
+</div></code></pre>
+En respuesta a este mensaje, se pasa a la fase de <code>apuesta1</code> y se envia el estado actualizado de la partida a todos los jugadores.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<p>Cualquier mensaje con acción desconocida, en fases que no corresponden, cuando no es su turno, o con contenido incorrecto, se responderá con un mensaje de error.</p>
+<h2 id="resumen">Resumen</h2>
+<pre class="hljs"><code><div><span class="hljs-keyword">enum</span> AccionSala {
+	crearSala = <span class="hljs-string">'crear'</span>,
+	unirseSala = <span class="hljs-string">'unirse'</span>,
+	nuevoJugador = <span class="hljs-string">'nuevoJugador'</span>,
+	iniciarSala = <span class="hljs-string">'iniciar'</span>,
+
+	pausarSala = <span class="hljs-string">'pausar'</span>,
+	reanudarSala = <span class="hljs-string">'reanudar'</span>,
+	abandonarSala = <span class="hljs-string">'abandonar'</span>,
+
+	estado = <span class="hljs-string">'estado'</span>,
+	error = <span class="hljs-string">'error'</span>,
+}
+
+<span class="hljs-keyword">enum</span> AccionJugador {
+	apostar = <span class="hljs-string">'apostar'</span>,
+
+	pedirCarta = <span class="hljs-string">'pedirCarta'</span>,
+	plantarse = <span class="hljs-string">'plantarse'</span>,
+	retirarse = <span class="hljs-string">'retirarse'</span>, <span class="hljs-comment">// solo si no se ha pedido ninguna carta antes</span>
+
+	nuevaRonda = <span class="hljs-string">'nuevaRonda'</span>,
+}
+
+<span class="hljs-keyword">interface</span> crearSala {
+	accion: AccionSala.crearSala;
+	codigo: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> abandonarSala {
+	accion: AccionSala.abandonarSala;
+	jugador: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> nuevoJugador {
+	accion: AccionSala.nuevoJugador;
+	jugador: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">interface</span> unirseSala {
+	accion: AccionSala.unirseSala;
+	jugadores: <span class="hljs-built_in">string</span>[];
+}
+
+<span class="hljs-keyword">interface</span> iniciarSala {
+	accion: AccionSala.iniciarSala;
+}
+
+<span class="hljs-keyword">interface</span> pausarSala {
+	accion: AccionSala.pausarSala;
+	jugadores: <span class="hljs-built_in">string</span>[];
+}
+
+<span class="hljs-keyword">interface</span> reanudarSala {
+	accion: AccionSala.reanudarSala;
+}
+
+<span class="hljs-keyword">interface</span> premio { <span class="hljs-comment">// solo para el jugador que abandona</span>
+	accion: AccionSala.premio;
+	personalizable: <span class="hljs-built_in">string</span>;
+}
+
+</div></code></pre>
+
+</body>
+</html>
